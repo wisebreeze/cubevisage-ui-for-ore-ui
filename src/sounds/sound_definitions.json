@@ -1,0 +1,22 @@
+{
+  "sound_definitions": {
+    "ui.drawer_open": {
+      "category": "ui",
+      "sounds": [
+        {
+          "name": "sounds/ui/drawer/drawer_open",
+          "volume": 0.4
+        }
+      ]
+    },
+    "ui.drawer_close": {
+      "category": "ui",
+      "sounds": [
+        {
+          "name": "sounds/ui/drawer/drawer_close",
+          "volume": 0.4
+        }
+      ]
+    }
+  }
+}

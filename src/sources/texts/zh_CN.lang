@@ -1,0 +1,21 @@
+## 创建世界
+hbui.CreateNewWorld.general.gameModeSpectatorDescription=允许玩家以飞行的方式无障碍穿过和观察世界。	#
+hbui.CreateNewWorld.general.gameModeSpectatorLabel=旁观	#
+hbui.CreateNewWorld.advanced.legacyWorldGeneratorDescription=基于世界种子的旧版 Minecraft 世界创建	#
+hbui.CreateNewWorld.advanced.legacyWorldGeneratorLabel=有限世界	#
+hbui.CreateNewWorld.debug.flatNether=下界超平坦	#
+hbui.CreateNewWorld.debug.enableGameVersionOverride=启用游戏版本覆盖	#
+hbui.CreateNewWorld.debug.gameVersionOverride=游戏版本覆盖	#
+hbui.CreateNewWorld.debug.worldBiomeSettings=世界群系设置	#
+hbui.CreateNewWorld.debug.defaultSpawnBiome=默认生成生物群落	#
+hbui.CreateNewWorld.debug.defaultSpawnBiomeDescription=使用默认的生成生物群落意味着选择了一个生成的主世界生物群落	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter=生成维度过滤	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.overworld=主世界	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.nether=下界	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.theEnd=末地	#
+hbui.CreateNewWorld.debug.spawnBiome=生成生物群落	#
+hbui.CreateNewWorld.debug.biomeOverride=生物群落覆盖	#
+hbui.CreateNewWorld.debug.biomeOverrideDescription=将世界设置为选定的生物群落。这将覆盖生成的生物群落！	#
+hbui.CreateNewWorld.debug.biomeOverrideDropdownDescription=选择在全世界使用的生物群落	#
+hbui.CreateNewWorldSideMenu.debugTabLabel=调试	#
+hbui.CreateNewWorldSideMenu.screenLinkTabLabel=屏幕跳转调试	#

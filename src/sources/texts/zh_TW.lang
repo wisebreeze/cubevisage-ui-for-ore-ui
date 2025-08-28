@@ -1,0 +1,21 @@
+## 創建世界
+hbui.CreateNewWorld.general.gameModeSpectatorDescription=允許玩家以飛行方式無障礙穿越並觀察世界。	#
+hbui.CreateNewWorld.general.gameModeSpectatorLabel=旁觀者模式	#
+hbui.CreateNewWorld.advanced.legacyWorldGeneratorDescription=基於世界種子的舊版 Minecraft 世界生成系統	#
+hbui.CreateNewWorld.advanced.legacyWorldGeneratorLabel=舊版世界	#
+hbui.CreateNewWorld.debug.flatNether=平坦化下界	#
+hbui.CreateNewWorld.debug.enableGameVersionOverride=啟用遊戲版本覆蓋	#
+hbui.CreateNewWorld.debug.gameVersionOverride=遊戲版本覆蓋	#
+hbui.CreateNewWorld.debug.worldBiomeSettings=世界生物群系設定	#
+hbui.CreateNewWorld.debug.defaultSpawnBiome=預設生成生物群系	#
+hbui.CreateNewWorld.debug.defaultSpawnBiomeDescription=使用預設生成生物群系意味著選擇主世界生物群系作為生成點	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter=生成維度篩選器	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.overworld=主世界	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.nether=下界	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.theEnd=終界	#
+hbui.CreateNewWorld.debug.spawnBiome=生成生物群系	#
+hbui.CreateNewWorld.debug.biomeOverride=生物群系覆寫	#
+hbui.CreateNewWorld.debug.biomeOverrideDescription=將世界設定為指定生物群系，此操作將覆蓋自然生成的生物群系！	#
+hbui.CreateNewWorld.debug.biomeOverrideDropdownDescription=選擇全域適用的生物群系	#
+hbui.CreateNewWorldSideMenu.debugTabLabel=除錯模式	#
+hbui.CreateNewWorldSideMenu.screenLinkTabLabel=畫面連結除錯	#

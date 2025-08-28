@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    paths:
+      - 'src/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (vars.AUTO_DEPLOY == 'true')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Clean dist
+        run: rm -rf dist && mkdir -p dist
+
+      - name: Build
+        run: npm start
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          files: dist/**
+          fail_on_unmatched_files: true
+          token: ${{ secrets.GITHUB_TOKEN }}

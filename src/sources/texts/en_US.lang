@@ -1,0 +1,21 @@
+## Create New World
+hbui.CreateNewWorld.general.gameModeSpectatorDescription=Allows players to fly through and observe the world without any obstructions.	#
+hbui.CreateNewWorld.general.gameModeSpectatorLabel=Spectator	#
+hbui.CreateNewWorld.advanced.legacyWorldGeneratorDescription=Legacy Minecraft world generation based on the world seed	#
+hbui.CreateNewWorld.advanced.legacyWorldGeneratorLabel=Legacy world	#
+hbui.CreateNewWorld.debug.flatNether=Flat Nether	#
+hbui.CreateNewWorld.debug.enableGameVersionOverride=Enable game version override	#
+hbui.CreateNewWorld.debug.gameVersionOverride=Game version override	#
+hbui.CreateNewWorld.debug.worldBiomeSettings=World biome settings	#
+hbui.CreateNewWorld.debug.defaultSpawnBiome=Default spawn biome	#
+hbui.CreateNewWorld.debug.defaultSpawnBiomeDescription=Using default spawn biome means a primary world biome is chosen for spawning	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter=Spawn dimension filter	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.overworld=Overworld	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.nether=Nether	#
+hbui.CreateNewWorld.debug.spawnDimensionFilter.theEnd=The End	#
+hbui.CreateNewWorld.debug.spawnBiome=Spawn biome	#
+hbui.CreateNewWorld.debug.biomeOverride=Biome override	#
+hbui.CreateNewWorld.debug.biomeOverrideDescription=Sets the world to a selected biome. This will override the generated biome!	#
+hbui.CreateNewWorld.debug.biomeOverrideDropdownDescription=Select biome to use throughout the world	#
+hbui.CreateNewWorldSideMenu.debugTabLabel=Debug	#
+hbui.CreateNewWorldSideMenu.screenLinkTabLabel=Screen link debug	#

@@ -1,0 +1,100 @@
+{
+  // 语言设置：zh-CN, zh-TW, en-US
+  "language": "zh-CN",
+
+  // 目标处理路径
+  "targetFolder": {
+    "apk": "assets/assets/gui",
+    "ipa": "Payload/minecraftpe.app/data/gui",
+    "appx": "data/gui"
+  },
+
+  // 翻译路径
+  "translationsFolder": {
+    "apk": "assets/assets/resource_packs/oreui/texts",
+    "ipa": "Payload/minecraftpe.app/data/resource_packs/oreui/texts",
+    "appx": "data/resource_packs/oreui/texts"
+  },
+
+  // 处理顺序
+  "sequence": [ 'apk', 'ipa', 'appx' ],
+
+  // 压缩代码
+  "minify": false,
+
+  // 输出 .mcpack
+  "outputMcpack": false,
+
+  // 开发服务器
+  "devServer": {
+    "host": "0.0.0.0",// 主机
+    "post": 8800,// 端口
+    "request_timeout": 4000,// 请求时间
+
+    "use_default_routes": "/create-new-world/general",// 默认路由
+    "use_translations": true,// 使用翻译
+    "use_gameplay_routes": true// 游戏内
+  },
+
+  // 全局
+  "global": {
+    // 增强下拉
+    "enhancedDropDown": true,
+    // 好友抽屉
+    "friendsDrawer": true,
+    // 始终显示滚动条
+    "alwaysShowScrollbar": true
+  },
+
+  // 世界屏幕
+  "worldScreen": {
+    // 世界类型下拉
+    "worldTypeDropdown": true,
+    // 导出世界
+    "exportWorld": true,
+    // 调试
+    "debug": true,
+    // 订阅
+    "marketplacePass": false,
+    // 获得更多资源
+    "getMoreResource": false,
+    // 领域
+    "realms": false,
+    // 禁用极限模式
+    "hardcoreModeDisabled": false,
+    // 禁用实验性玩法
+    "experimentalDisabled": false,
+    // 昼夜循环锁定时间
+    "daylightCycleLockTime": true,
+    // 游戏模式
+    "gamemode": true,
+    // 翻译
+    "translations": true
+  },
+
+  // 游戏屏幕
+  "playScreen": {
+    // 使用模板创建
+    "createFromTemplate": true,
+    // 布局切换
+    "gridLayout": true
+  },
+
+  // 模板屏幕
+  "startFromTemplateScreen": {
+    // 简化布局
+    "simple": true,
+    // 导出按钮
+    "importButton": true,
+    // 隐藏订阅
+    "hideMarketplacePass": false,
+    // 隐藏特色
+    "hideFeatured": false
+  },
+
+  // 就寝时间屏幕
+  "bedtimeScreen": {
+    // 聊天按钮
+    "chatAvailability": true
+  }
+}

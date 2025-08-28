@@ -1,0 +1,8 @@
+debug.zip
+dist/
+hbui/
+src/*.apk
+src/*.ipa
+src/*.appx
+src/texts/
+node_modules/
