@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -28,11 +30,32 @@ jobs:
       - name: Build
         run: npm start
 
-      - name: Release
+      - name: Get build info
+        id: build_info
+        run: |
+          echo "commit_hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "branch=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+          echo "commit_message=$(git log -1 --pretty=%B | head -n 1)" >> $GITHUB_OUTPUT
+
+      - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ github.run_number }}
-          name: Release v${{ github.run_number }}
+          tag_name: release-${{ steps.build_info.outputs.commit_hash }}
+          name: Release ${{ steps.build_info.outputs.commit_hash }}
+          body: |
+            ## Build Information
+            
+            **Release Time:** ${{ steps.build_info.outputs.timestamp }}
+            **Branch:** ${{ steps.build_info.outputs.branch }}
+            **Commit Hash:** ${{ steps.build_info.outputs.commit_hash }}
+            **Workflow Run:** #${{ github.run_number }}
+            
+            ## Latest Commit
+            ${{ steps.build_info.outputs.commit_message }}
+            
+            ---
+            *Automatically generated release*
           files: dist/**
           fail_on_unmatched_files: true
           token: ${{ secrets.GITHUB_TOKEN }}
