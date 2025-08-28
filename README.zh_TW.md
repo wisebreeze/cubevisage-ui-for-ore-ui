@@ -86,24 +86,24 @@ git merge upstream/main
 git push origin main
 ```
 
-設定
+## 設定
 
 執行工作流前，可編輯專案根目錄下的 `config.json` 檔案進行自訂。
 
-貢獻
+## 貢獻
 
 本儲存庫旨在持續發展立方之窗生態，改善使用者體驗。我們感謝社群貢獻錯誤修正與改進。閱讀下文了解如何參與改進立方之窗 UI Ore UI 版本。
 
-行為準則
+### 行為準則
 
 - 不得加入惡意程式碼。  
 - 不得違反下文中授權條款。
 
-貢獻指引
+### 貢獻指引
 
 您可在 [issues](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/issues) 回報相關問題，並儘可能提供截圖與詳細描述，協助我們改進立方之窗 UI。
 
-授權證
+## 授權證
 
 - 允許修改程式碼。  
 - 必須保留原作者署名。  

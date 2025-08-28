@@ -87,26 +87,26 @@ git merge upstream/main
 git push origin main
 ```
 
-Configuration
+## Configuration
 
 Before running the workflow, edit the `config.json` file in the project root to customize the build.
 
-Contributing
+## Contributing
 
 This repository aims to continue developing the CubeVisage ecosystem and improve the user experience.
 
 We appreciate community contributions for bug fixes and enhancements.
 
-Code of Conduct
+### Code of Conduct
 
 - Do not add malicious code.  
 - Do not violate the license terms below.
 
-Contribution Guide
+### Contribution Guide
 
 Please open an [issue](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/issues) with screenshots and detailed descriptions to help us improve CubeVisage UI.
 
-License
+## License
 
 - Modification of the code is permitted.  
 - Original author attribution must be retained.  
