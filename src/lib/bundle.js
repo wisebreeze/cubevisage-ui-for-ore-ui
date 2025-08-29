@@ -7,7 +7,6 @@ import prettier from 'prettier'
 import chalk from 'chalk'
 import { execSync } from 'child_process'
 import plist from 'plist'
-import ApkSigner from 'apk-signer'
 
 import { CONFIG } from './config.js'
 import { t } from './i18n.js'
@@ -109,21 +108,6 @@ function mergeTranslationFiles(apkTextsDir) {
       fs.writeFileSync(apkFilePath, newLines.join('\n'))
     } else {
       fs.copyFileSync(localFilePath, apkFilePath)
-    }
-  })
-}
-
-async function signApk(inputApk, outputApk) {
-  const { v1, v2, v3 } = CONFIG.androidSign
-  await ApkSigner.sign({
-    input:  inputApk,
-    output: outputApk,
-    v1, v2, v3,
-    keystore: {
-      path:     'my.keystore',
-      alias:    'alias',
-      password: 'storepass',
-      keyPassword: 'keypass'
     }
   })
 }
@@ -254,14 +238,6 @@ const processFile = async (filePath, fileType) => {
         })
       }
       mcpackZip.writeZip(mcpackPath)
-    }
-
-    if (CONFIG.sign && fileType === 'apk') {
-      console.log(chalk.cyan(t('signing', fileName)))
-      const signedFile = finalFile.replace(/\.apk$/, '_signed.apk')
-      await signApk(finalFile, signedFile)
-      fs.renameSync(signedFile, finalFile)
-      console.log(chalk.green(t('signed', fileName)))
     }
 
     console.log(chalk.green(t('success', fileName)))

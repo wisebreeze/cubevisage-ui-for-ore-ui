@@ -107,14 +107,14 @@ export function removeArrayPropertyItem(code, searchText, propName, occurrence =
  * @param {number} occurrence 第几次出现
  * @returns {string} 处理后的代码字符串
  */
-export function replaceObjectPropertyValue(code, searchText, propName = 'when', newValue = '!1', occurrence = 1) {
+export function replaceObjectPropertyValue(code, searchText, propName = 'when', newValue = '!1', occurrence = 1, direction = 'backward') {
   let pos = 0
   let count = 0
   
   while ((pos = code.indexOf(searchText, pos)) !== -1) {
     count++
     if (count === occurrence) {
-      const propStart = code.lastIndexOf(propName + ':', pos)
+      const propStart = code[direction === 'backward' ? 'lastIndexOf' : 'indexOf'](propName + ':', pos)
       if (propStart !== -1) {
         const valueEnd = Math.min(
           code.indexOf(',', propStart) !== -1 ? code.indexOf(',', propStart) : Infinity,
@@ -122,7 +122,7 @@ export function replaceObjectPropertyValue(code, searchText, propName = 'when', 
         )
         if (valueEnd !== Infinity) {
           const valueStart = code.indexOf(':', propStart) + 1
-          return code.substring(0, valueStart) + ` ${newValue}` + code.substring(valueEnd)
+          return code.substring(0, valueStart) + ` ${newValue} ` + code.substring(valueEnd)
         }
       }
       break
@@ -131,4 +131,31 @@ export function replaceObjectPropertyValue(code, searchText, propName = 'when', 
   }
   
   return code
+}
+
+/**
+ * 获取包含指定搜索文本的完整 React 元素代码
+ * @param {string} code - 要搜索的代码字符串
+ * @param {string} searchText - 要搜索的文本内容
+ * @returns {string|null} 返回包含搜索文本的完整 React 元素代码，如果未找到则返回 null
+ */
+export function getReactElement(code, searchText) {
+  const pos = code.indexOf(searchText)
+  if (pos === -1) return null
+
+  const createElementPos = code.lastIndexOf('.createElement(', pos)
+  if (createElementPos === -1) return null
+
+  let varStart = createElementPos - 1
+  while (varStart >= 0 && /[a-zA-Z0-9_$]/.test(code[varStart])) {
+    varStart--
+  }
+  const varName = code.substring(varStart + 1, createElementPos)
+
+  const parenStart = code.indexOf('(', createElementPos)
+  const parenEnd = findMatchingParen(code, parenStart)
+  
+  if (parenEnd === -1) return null
+  
+  return code.substring(varStart + 1, parenEnd + 1)
 }
