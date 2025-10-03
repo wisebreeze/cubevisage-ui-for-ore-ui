@@ -4,9 +4,9 @@
 
 # 立方之窗 UI Ore UI 版本
 
-[![GitHub release](https://img.shields.io/github/v/release/wisebreeze/cubevisage-ui-for-ore-ui?style=flat-square)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/releases)
-[![GitHub stars](https://img.shields.io/github/stars/wisebreeze/cubevisage-ui-for-ore-ui?style=flat-square)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/stargazers)
-[![许可证](https://img.shields.io/badge/许可证-自定义-green?style=flat-square)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/wisebreeze/cubevisage-ui-for-ore-ui)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/releases)
+[![GitHub stars](https://img.shields.io/github/stars/wisebreeze/cubevisage-ui-for-ore-ui)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/stargazers)
+[![许可证](https://img.shields.io/badge/许可证-MIT-green)](LICENSE)
 [![(工作流) 构建](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/actions/workflows/deploy.yml/badge.svg)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/actions/workflows/deploy.yml)
 
 [English](/README.md) / [简体中文](/README.zh-CN.md) / [繁体中文](/README.zh-TW.md)

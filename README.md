@@ -4,9 +4,9 @@
 
 # CubeVisage UI Ore UI Edition
 
-[![GitHub release](https://img.shields.io/github/v/release/wisebreeze/cubevisage-ui-for-ore-ui?style=flat-square)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/releases)
-[![GitHub stars](https://img.shields.io/github/stars/wisebreeze/cubevisage-ui-for-ore-ui?style=flat-square)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/stargazers)
-[![License](https://img.shields.io/badge/license-Custom-green?style=flat-square)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/wisebreeze/cubevisage-ui-for-ore-ui)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/releases)
+[![GitHub stars](https://img.shields.io/github/stars/wisebreeze/cubevisage-ui-for-ore-ui)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Build Workflow](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/actions/workflows/deploy.yml/badge.svg)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/actions/workflows/deploy.yml)
 
 [English](/README.md) / [简体中文](/README.zh-CN.md) / [繁體中文](/README.zh-TW.md)
