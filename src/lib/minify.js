@@ -1,42 +1,24 @@
 // @ts-check
-import { minify as minifyCode } from 'terser'
+import { transform } from 'esbuild'
 import { t } from './i18n.js'
+import chalk from 'chalk'
 
 export async function minify(code, fileName) {
   try {
-    const commentMatch = code.match(/^(\/\*![\s\S]*?\*\/)/)
-    const licenseComment = commentMatch ? commentMatch[1] + '\n' : ''
-    
-    const result = await minifyCode(code, {
-      compress: {
-        drop_console: false,
-        drop_debugger: true,
-        ecma: 2020,
-        keep_classnames: false,
-        keep_fnames: false,
-        module: false,
-        toplevel: true
-      },
-      mangle: {
-        keep_classnames: false,
-        keep_fnames: false
-      },
-      format: {
-        comments: false,
-        preamble: licenseComment,
-        beautify: false,
-        preserve_annotations: false
-      },
-      sourceMap: false
+    let { code: result } = await transform(code, {
+      loader: 'js',
+      minify: true,
+      minifyIdentifiers: true,
+      minifySyntax: true,
+      minifyWhitespace: true,
+      target: 'es2020'
     })
     
-    if (result.error) {
-      throw result.error
+    if (!result) {
+      throw `Failed to compress the file ${fileName}: Cannot read properties of undefined`
     }
     
-    result.code = result.code.replace(/^([^\n]*)\n\s*\n/, '$1\n')
-    
-    return result.code
+    return result
   } catch (error) {
     console.error(chalk.red(t('error', `Failed to compress the file ${fileName}}: ${error.message}`)))
     return code

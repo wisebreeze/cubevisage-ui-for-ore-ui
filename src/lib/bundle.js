@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import AdmZip from 'adm-zip'
-import prettier from 'prettier'
+import { transform } from '@swc/wasm'
 import chalk from 'chalk'
 import { execSync } from 'child_process'
 import plist from 'plist'
@@ -178,6 +178,7 @@ const processFile = async (filePath, fileType) => {
     if (!fs.existsSync(hbuiPath)) throw new Error(t('missingFolder', `${targetFolder}/${HBUI_PATH}`))
 
     console.log(t('processingJs'))
+    const version = await getVersionFromArchive(filePath, fileType)
     const jsFiles = fs.readdirSync(hbuiPath)
       .filter(f => 
         (INDEX_PATTERN.test(f) || GAMEPLAY_PATTERN.test(f)) && 
@@ -190,11 +191,24 @@ const processFile = async (filePath, fileType) => {
         jsProgress.log(t('formatting', file))
         const filePath = path.join(hbuiPath, file)
         const code = fs.readFileSync(filePath, 'utf8')
-        let formatted = await prettier.format(code, { parser: 'babel', tabWidth: 2, semi: false })
+        let { code: formatted } = await transform(code, {
+          jsc: {
+            parser: {
+              syntax: 'ecmascript',
+              jsx: false
+            },
+            target: 'es2020',
+            minify: {
+              compress: false,
+              mangle: false
+            }
+          },
+          minify: false
+        })
         if (INDEX_PATTERN.test(file)) {
-          formatted = applyPatches(formatted, CONFIG)
+          formatted = applyPatches(formatted, CONFIG, version)
         } else if (GAMEPLAY_PATTERN.test(file)) {
-          formatted = applyGameplayPatches(formatted, CONFIG)
+          formatted = applyGameplayPatches(formatted, CONFIG, version)
         }
         if (CONFIG.minify) {
           jsProgress.log(t('minifyingFile', file))
@@ -221,7 +235,6 @@ const processFile = async (filePath, fileType) => {
     packProgress.complete()
 
     if (CONFIG.outputMcpack) {
-      const version = await getVersionFromArchive(filePath, fileType)
       const mcpackName = `CubeVisage_UI_OreUI_${version || '1.0.0'}.mcpack`
       const mcpackPath = path.join(DIST_DIR, mcpackName)
       const mcpackZip = new AdmZip()

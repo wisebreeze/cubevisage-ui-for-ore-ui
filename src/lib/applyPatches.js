@@ -1,5 +1,45 @@
 // @ts-check
-import { replaceObjectPropertyValue, removeArrayPropertyItem, removeElementByPropValue } from './patchUtils.js'
+import { replaceObjectPropertyValue, removeArrayPropertyItem, removeElementByPropValue, isVersionGreaterOrEqual } from './patchUtils.js'
+
+/**
+ * 在字符串中修改后的逻辑条件
+ * @param {string} code 原始代码字符串
+ * @returns {string} 修改后的代码字符串
+ */
+function removeOrConditionAfterLayoutMode(code) {
+  const target = 'playScreenWorldLayoutMode'
+  const orPattern = /\|\|/g
+  const maxSearchDistance = 20
+
+  let index = code.indexOf(target)
+  if (index === -1) return code
+
+  const searchEnd = Math.min(index + target.length + maxSearchDistance, code.length)
+  const searchArea = code.substring(index, searchEnd)
+
+  let orIndex = searchArea.indexOf('||')
+  if (orIndex === -1) return code
+
+  orIndex += index
+
+  let conditionEnd = orIndex + 2
+  let parenBalance = 0
+  let foundEnd = false
+
+  while (conditionEnd < code.length && !foundEnd) {
+    const char = code[conditionEnd]
+    if (char === '(') parenBalance++
+    if (char === ')') parenBalance--
+    
+    if ((char === ',' || char === ';' || (char === ')' && parenBalance < 0)) && parenBalance <= 0) {
+      foundEnd = true
+    } else {
+      conditionEnd++
+    }
+  }
+
+  return code.substring(0, orIndex) + code.substring(conditionEnd)
+}
 
 /**
  * 应用主要补丁
@@ -7,12 +47,13 @@ import { replaceObjectPropertyValue, removeArrayPropertyItem, removeElementByPro
  * @param {Object} config 配置对象
  * @returns {string} 修改后的代码
  */
-export function applyPatches(jsCode, config) {
+export function applyPatches(jsCode, config, version = '') {
   let patched = jsCode
 
   let translationPrefixCount = 0
   let pos = 0
   let translationName = ''
+  const is1_21_110 = isVersionGreaterOrEqual(version, '1.21.110')
   
   while ((pos = patched.indexOf('translationPrefix', pos)) !== -1) {
     translationPrefixCount++
@@ -118,11 +159,13 @@ export function applyPatches(jsCode, config) {
         }
       }
       
-      const questionPos = patched.lastIndexOf('?', pos)
-      if (questionPos !== -1) {
-        const commaPos = patched.lastIndexOf(',', questionPos)
-        if (commaPos !== -1) {
-          patched = patched.substring(0, commaPos + 1) + '\n                      !1' + patched.substring(questionPos)
+      if (!is1_21_110 || count === 0) {
+        const questionPos = patched.lastIndexOf('?', pos)
+        if (questionPos !== -1) {
+          const commaPos = patched.lastIndexOf(',', questionPos)
+          if (commaPos !== -1) {
+            patched = patched.substring(0, commaPos + 1) + '\n                      !1' + patched.substring(questionPos)
+          }
         }
       }
       
@@ -133,8 +176,8 @@ export function applyPatches(jsCode, config) {
   }
 
   if (config.worldScreen?.exportWorld) {
-    patched = replaceObjectPropertyValue(patched, '.fileManagementDeleteWorldLabel', 'when', '!0', 2)
-   patched = replaceObjectPropertyValue(patched, 'onExportTemplate', 'when', '!0', 2)
+    patched = replaceObjectPropertyValue(patched, '.fileManagementDeleteWorldLabel', 'when', '!0', 2, 'forward')
+    patched = replaceObjectPropertyValue(patched, 'onExportTemplate', 'when', '!0', 2)
   }
 
   if (config.worldScreen?.debug) {
@@ -177,11 +220,11 @@ export function applyPatches(jsCode, config) {
   }
 
   if (config.worldScreen?.realms === false) {
-    patched = replaceObjectPropertyValue(patched, 'isRealmsButtonDisabled')
+    patched = replaceObjectPropertyValue(patched, 'isRealmsButtonDisabled', 'when', '!1', is1_21_110 ? 2 : 1)
   }
 
   if (config.worldScreen?.hardcoreModeDisabled === false) {
-    patched = replaceObjectPropertyValue(patched, '.hardcoreModeDescription', 'disabled')
+    patched = replaceObjectPropertyValue(patched, '.hardcoreModeDescription', 'disabled', '!1')
   }
 
   if (config.worldScreen?.experimentalDisabled === false) {
@@ -191,23 +234,39 @@ export function applyPatches(jsCode, config) {
   if (config.worldScreen?.daylightCycleLockTime === true) {
     const searchText = '.daylightCycleLockTimeLabel'
     let pos = 0
+    let count = 0
     while ((pos = patched.indexOf(searchText, pos)) !== -1) {
-      const returnPos = patched.lastIndexOf('return', pos)
-      const openParenPos = patched.indexOf('(', returnPos)
-      if (returnPos !== -1 && openParenPos !== -1) {
-        const andPos = patched.indexOf('&&', openParenPos)
-        if (andPos !== -1) {
-          const contentStart = openParenPos + 1
+      if (count === 0) {
+        const returnPos = patched.lastIndexOf('return', pos)
+        const andPos = patched.indexOf('&&', returnPos)
+        if (returnPos !== -1 && andPos !== -1) {
+          const contentStart = returnPos + 6
           const contentEnd = andPos
           const content = patched.substring(contentStart, contentEnd).trim()
           if (content && content !== '!0') {
             patched = patched.substring(0, contentStart) + 
-              '!0' + 
+              ' !0 ' + 
               patched.substring(contentEnd)
+          }
+        }
+      } else {
+        const semicolonPos = patched.lastIndexOf(';', pos)
+        if (semicolonPos !== -1) {
+          const andPos = patched.indexOf('&&', semicolonPos)
+          if (andPos !== -1) {
+            const contentStart = semicolonPos + 1
+            const contentEnd = andPos
+            const content = patched.substring(contentStart, contentEnd).trim()
+            if (content && content !== '!0') {
+              patched = patched.substring(0, contentStart) + 
+                ' !0 ' + 
+                patched.substring(contentEnd)
+            }
           }
         }
       }
       pos += searchText.length
+      count++
     }
   }
 
@@ -229,7 +288,7 @@ export function applyPatches(jsCode, config) {
         if (returnPos !== -1) {
           const andPos = patched.indexOf('&&', returnPos)
           if (andPos !== -1) {
-            patched = patched.substring(0, returnPos + 8) + '!0' + patched.substring(andPos)
+            patched = patched.substring(0, returnPos + 7) + '!0 ' + patched.substring(andPos)
             
             const pushStart = patched.indexOf('.push(', returnPos)
             if (pushStart !== -1) {
@@ -283,7 +342,7 @@ export function applyPatches(jsCode, config) {
       const constPos = patched.lastIndexOf('const', pos)
       if (constPos !== -1) {
         const insertPos = constPos + 5
-        patched = patched.substring(0, insertPos) + ' { t: translate } = wi("CreateNewWorld.debug"),' + patched.substring(insertPos)
+        patched = patched.substring(0, insertPos) + ` { t: translate } = ${translationName}("CreateNewWorld.debug"),` + patched.substring(insertPos)
       }
     }
     const replacements = [
@@ -347,6 +406,7 @@ export function applyPatches(jsCode, config) {
         }
       }
     }
+    patched = removeOrConditionAfterLayoutMode(patched)
   }
 
   if (config.startFromTemplateScreen?.simple === true) {

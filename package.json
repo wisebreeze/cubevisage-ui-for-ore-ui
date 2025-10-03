@@ -11,23 +11,25 @@
     "cubevisage"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "start": "node ./src/lib/bundle.js",
     "dev": "node ./src/lib/server.js"
   },
   "dependencies": {
-    "adm-zip": "^0.5.10",
+    "adm-zip": "^0.5.16",
     "app-info-parser": "^1.1.6",
-    "chalk": "^5.3.0",
+    "chalk": "^5.6.2",
     "json5": "^2.2.3",
-    "plist": "^3.1.0",
-    "prettier": "^3.0.0",
-    "terser": "^5.43.1"
+    "plist": "^3.1.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/wisebreeze/cubevisage-ui-for-ore-ui.git"
+  },
+  "devDependencies": {
+    "@swc/wasm": "^1.13.20",
+    "esbuild": "^0.25.10"
   }
 }

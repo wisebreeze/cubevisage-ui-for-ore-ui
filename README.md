@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-Custom-green?style=flat-square)](LICENSE)
 [![Build Workflow](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/actions/workflows/deploy.yml/badge.svg)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/actions/workflows/deploy.yml)
 
-[English](/README.md) / [简体中文](/README.zh_CN.md) / [繁體中文](/README.zh_TW.md)
+[English](/README.md) / [简体中文](/README.zh-CN.md) / [繁體中文](/README.zh-TW.md)
 
 CubeVisage UI Ore UI Edition is a user interface built on top of Ore UI.
 
@@ -102,15 +102,14 @@ We appreciate community contributions for bug fixes and enhancements.
 - Do not add malicious code.  
 - Do not violate the license terms below.
 
-### Contribution Guide
+## Changelog
 
-Please open an [issue](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/issues) with screenshots and detailed descriptions to help us improve CubeVisage UI.
+For details, see [CHANGELOG.md](./CHANGELOG.md).
 
 ## License
 
-- Modification of the code is permitted.  
-- Original author attribution must be retained.  
-- Commercial use is strictly prohibited.  
-- This repository is not affiliated with any company or studio.  
-- All referenced works are used solely for identification purposes.  
-- The original author retains all rights.
+- Licensed under the MIT License. In case of any conflict with the following terms, the terms below shall prevail.
+- Attribution to the original author must be retained.
+- This repository is not affiliated with any company or studio.
+- The works mentioned in this repository are used for identification purposes only and carry no additional meaning.
+- All rights are reserved by the original author.

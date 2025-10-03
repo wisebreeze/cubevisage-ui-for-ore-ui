@@ -159,3 +159,23 @@ export function getReactElement(code, searchText) {
   
   return code.substring(varStart + 1, parenEnd + 1)
 }
+
+/**
+ * 比较两个版本号是否满足 version1 >= version2
+ * @param {string} version1 
+ * @param {string} version2 
+ * @returns {boolean} 如果 version1 >= version2 返回 true，否则 false
+ */
+export function isVersionGreaterOrEqual(version1, version2) {
+  const v1Parts = version1.split('.').map(Number)
+  const v2Parts = version2.split('.').map(Number)
+
+  const maxLength = Math.max(v1Parts.length, v2Parts.length)
+  while (v1Parts.length < maxLength) v1Parts.push(0)
+  while (v2Parts.length < maxLength) v2Parts.push(0)
+  for (let i = 0; i < maxLength; i++) {
+    if (v1Parts[i] > v2Parts[i]) return true
+    if (v1Parts[i] < v2Parts[i]) return false
+  }
+  return true
+}
