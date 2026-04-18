@@ -12,12 +12,23 @@ Adheres to [Keep a Changelog](https://keepachangelog.com/) and [Semantic Version
 | 🐛  | Fixed            | Bug fixes |
 
 ## [Unreleased]
-### ✨ Added
+### ✨ New Features
 
-- Added support for Android system to compile CubeVisage Ore UI version using so loader
-- Cloud update project or prompt that the version is outdated
+- Support for compiling CubeVisage Ore UI version in web browser
+- Cloud update notification or version expiration reminder
 
-## [1.4.0] - 2024-10-03  
+## [1.5.0] - 2026-04-18  
+### ✨ New Features
+- Added automatic APK file signing
+
+### ⚡ Changed
+- Changed project icon
+- Disabled always show scrollbar by default
+
+### 🐛 Fixed
+- Fixed JavaScript code syntax issue caused by force enabling scrollbar
+
+## [1.4.0] - 2025-10-03  
 ### ⚠️ Breaking Changes  
 - **Drop support for Node.js 16**. Minimum version now Node.js 20  
 

@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/wisebreeze/cubevisage-ui-for-ore-ui/main/src/sources/pack_icon.png" width="150" alt="CubeVisage Icon">
 </div>
 
-# 立方之窗 UI Ore UI 版本
+# 方窗 UI Ore UI 版本
 
 [![GitHub release](https://img.shields.io/github/v/release/wisebreeze/cubevisage-ui-for-ore-ui)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/releases)
 [![GitHub stars](https://img.shields.io/github/stars/wisebreeze/cubevisage-ui-for-ore-ui)](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/stargazers)
@@ -11,10 +11,10 @@
 
 [English](/README.md) / [简体中文](/README.zh-CN.md) / [繁体中文](/README.zh-TW.md)
 
-立方之窗 UI Ore UI 版本是一个基于 Ore UI 开发的用户界面。
+方窗 UI Ore UI 版本是一个基于 Ore UI 开发的用户界面。
 
-* **简单：** 立方之窗 UI 使改进用户体验。无需代码基础，即可增强 Ore UI 的体验。
-* **多端部署：** 立方之窗 UI 适用于多平台，为用户带来沉浸体验。
+* **简单：** 方窗 UI 使改进用户体验。无需代码基础，即可增强 Ore UI 的体验。
+* **多端部署：** 方窗 UI 适用于多平台，为用户带来沉浸体验。
 
 ## 部署
 
@@ -37,7 +37,7 @@
 
 ## 本地部署
 
-我们为您提供了本地部署 立方之窗 UI Ore UI 版本。  
+我们为您提供了本地部署 方窗 UI Ore UI 版本。  
 在进行操作前，请检测您的终端是否安装 node.js 并且 node.js 版本 >= 20。  
 在您的终端输入 `node -v` 检查 node.js 版本是否 >= 20。 
 
@@ -51,7 +51,7 @@
 
 ## 浏览器调试
 
-我们为您提供了在线调试 立方之窗 UI，以快速预览更改。  
+我们为您提供了在线调试 方窗 UI，以快速预览更改。  
 在进行操作前，请检测您的终端是否安装 node.js 并且 node.js 版本 >= 20。  
 在您的终端输入 `node -v` 检查 node.js 版本是否 >= 20。 
 
@@ -92,7 +92,7 @@ git push origin main
 
 ## 贡献
 
-该仓库的目的是继续发展立方之窗生态，使其改进用户体验。我们感谢社区贡献错误修复和改进。阅读下文，了解如何参与改进 立方之窗 UI Ore UI 版本。
+该仓库的目的是继续发展方窗生态，使其改进用户体验。我们感谢社区贡献错误修复和改进。阅读下文，了解如何参与改进 方窗 UI Ore UI 版本。
 
 ### 行为准则
 
@@ -101,7 +101,7 @@ git push origin main
 
 ### 贡献指引
 
-您可以在 [issues](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/issues) 中反馈相关问题，尽可能地提供截图及其详细的描述，这将有助于我们更好地改进立方之窗 UI。
+您可以在 [issues](https://github.com/wisebreeze/cubevisage-ui-for-ore-ui/issues) 中反馈相关问题，尽可能地提供截图及其详细的描述，这将有助于我们更好地改进方窗 UI。
 
 ## 更新日志
 

@@ -18,7 +18,7 @@
     "dev": "node ./src/lib/server.js"
   },
   "dependencies": {
-    "adm-zip": "^0.5.16",
+    "adm-zip": "^0.5.17",
     "app-info-parser": "^1.1.6",
     "chalk": "^5.6.2",
     "json5": "^2.2.3",
@@ -29,7 +29,7 @@
     "url": "https://github.com/wisebreeze/cubevisage-ui-for-ore-ui.git"
   },
   "devDependencies": {
-    "@swc/wasm": "^1.13.20",
-    "esbuild": "^0.25.10"
+    "@swc/wasm": "^1.15.26",
+    "esbuild": "^0.25.12"
   }
 }

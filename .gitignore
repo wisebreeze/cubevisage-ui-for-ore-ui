@@ -1,8 +1,57 @@
-debug.zip
+# Dependencies
+node_modules/
+
+# Build output
 dist/
 hbui/
+
+# Temporary files
+.temp/
+
+# Source package files
 src/*.apk
 src/*.ipa
 src/*.appx
+src/*.apk.*
+src/*.ipa.*
+src/*.appx.*
+
+# Local translation files
 src/texts/
-node_modules/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+.directory
+.ds_store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Signature related files
+*.idsig
+*.signed
+*.signed.tmp
+
+# Java
+*.keystore
+!debug.keystore
