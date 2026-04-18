@@ -1,5 +1,5 @@
 // @ts-check
-import { replaceObjectPropertyValue, removeArrayPropertyItem, removeElementByPropValue, isVersionGreaterOrEqual } from './patchUtils.js'
+import { replaceObjectPropertyValue, replaceAllObjectPropertyValues, removeArrayPropertyItem, removeElementByPropValue, isVersionGreaterOrEqual, isVersionLessThan } from './patchUtils.js'
 
 /**
  * 在字符串中修改后的逻辑条件
@@ -54,6 +54,7 @@ export function applyPatches(jsCode, config, version = '') {
   let pos = 0
   let translationName = ''
   const is1_21_110 = isVersionGreaterOrEqual(version, '1.21.110')
+  const less_than_1_26_10 = isVersionLessThan(version, '1.26.10')
   
   while ((pos = patched.indexOf('translationPrefix', pos)) !== -1) {
     translationPrefixCount++
@@ -97,6 +98,7 @@ export function applyPatches(jsCode, config, version = '') {
     let count = 0
     let secondCheckPos = -1
     
+    // Find second occurrence
     while ((startPos = patched.indexOf(checkStr, startPos)) !== -1) {
       count++
       if (count === 2) {
@@ -107,16 +109,35 @@ export function applyPatches(jsCode, config, version = '') {
     }
     
     if (secondCheckPos !== -1) {
-      const arrowPos = patched.indexOf('=>', secondCheckPos)
-      if (arrowPos !== -1) {
-        const questionPos = patched.indexOf('?', arrowPos + 2)
-        if (questionPos !== -1) {
-          patched = patched.substring(0, arrowPos + 2) + ' !0 ' + patched.substring(questionPos)
-        }
+      // Look for 'return' within 1000 characters after second occurrence
+      const returnSearchEnd = Math.min(secondCheckPos + 1000, patched.length)
+      const returnPos = patched.indexOf('return', secondCheckPos)
+      
+      if (returnPos === -1 || returnPos > returnSearchEnd) {
+        console.error('Error: Could not find "return" within 1000 characters after second checkForDynamicScrollArea')
+        return patched
+      }
+      
+      // Look for '=>' within 200 characters after return
+      const arrowSearchEnd = Math.min(returnPos + 200, patched.length)
+      const arrowPos = patched.indexOf('=>', returnPos)
+      
+      if (arrowPos === -1 || arrowPos > arrowSearchEnd) {
+        console.error('Error: Could not find "=>" within 200 characters after "return"')
+        return patched
+      }
+      
+      // Look for '?' after arrow
+      const questionPos = patched.indexOf('?', arrowPos + 2)
+      if (questionPos !== -1) {
+        // Replace everything between '=>' and '?' with ' !0 '
+        patched = patched.substring(0, arrowPos + 2) + ' !0 ' + patched.substring(questionPos)
+      } else {
+        console.error('Error: Could not find "?" after "=>"')
       }
     }
   }
-
+  
   if (config.worldScreen?.worldTypeDropdown) {
     const generatorLabel = '.generatorTypeLabel'
     let pos = 0
@@ -159,7 +180,7 @@ export function applyPatches(jsCode, config, version = '') {
         }
       }
       
-      if (!is1_21_110 || count === 0) {
+      if (less_than_1_26_10 && (!is1_21_110 || count === 0)) {
         const questionPos = patched.lastIndexOf('?', pos)
         if (questionPos !== -1) {
           const commaPos = patched.lastIndexOf(',', questionPos)
@@ -224,19 +245,47 @@ export function applyPatches(jsCode, config, version = '') {
   }
 
   if (config.worldScreen?.hardcoreModeDisabled === false) {
-    patched = replaceObjectPropertyValue(patched, '.hardcoreModeDescription', 'disabled', '!1')
+    patched = replaceAllObjectPropertyValues(patched, '.hardcoreModeDescription', 'disabled', '!1')
   }
 
   if (config.worldScreen?.experimentalDisabled === false) {
+    const areAllTogglesPos = patched.indexOf('areAllTogglesDisabled')
+    if (areAllTogglesPos !== -1) {
+      const searchEnd = Math.min(areAllTogglesPos + 2000, patched.length)
+      const targetPos = patched.indexOf('.narrationSuffixDisablesAchievements', areAllTogglesPos)
+      if (targetPos !== -1 && targetPos <= searchEnd) {
+        const disabledSearchEnd = Math.min(targetPos + 600, patched.length)
+        const disabledPos = patched.indexOf('disabled:', targetPos)
+        
+        if (disabledPos !== -1 && disabledPos <= disabledSearchEnd) {
+          const colonPos = disabledPos + 9 // 'disabled:'.length
+          let valueStart = colonPos
+          
+          while (valueStart < patched.length && /\s/.test(patched[valueStart])) {
+            valueStart++
+          }
+          
+          let valueEnd = valueStart
+          while (valueEnd < patched.length && patched[valueEnd] !== ',' && patched[valueEnd] !== '}') {
+            valueEnd++
+          }
+          
+          if (valueEnd > valueStart) {
+            patched = patched.substring(0, valueStart) + '!1' + patched.substring(valueEnd)
+          }
+        }
+      }
+    }
     patched = replaceObjectPropertyValue(patched, 'numOfSections', 'disabled', '!1', 2)
   }
 
   if (config.worldScreen?.daylightCycleLockTime === true) {
     const searchText = '.daylightCycleLockTimeLabel'
+    const returnPosition = less_than_1_26_10 ? 0 : 1
     let pos = 0
     let count = 0
     while ((pos = patched.indexOf(searchText, pos)) !== -1) {
-      if (count === 0) {
+      if (count === returnPosition) {
         const returnPos = patched.lastIndexOf('return', pos)
         const andPos = patched.indexOf('&&', returnPos)
         if (returnPos !== -1 && andPos !== -1) {

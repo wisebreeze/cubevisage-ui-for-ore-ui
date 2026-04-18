@@ -11,6 +11,7 @@ import plist from 'plist'
 import { CONFIG } from './config.js'
 import { t } from './i18n.js'
 import { ProgressTracker } from './progressTracker.js'
+import { signApk } from './apksigner.js'
 import { applyPatches } from './applyPatches.js'
 import { applyGameplayPatches } from './applyGameplayPatches.js'
 import { minify } from './minify.js'
@@ -214,7 +215,7 @@ const processFile = async (filePath, fileType) => {
           jsProgress.log(t('minifyingFile', file))
           formatted = await minify(formatted, file)
         }
-        fs.writeFileSync(filePath, formatted)
+        fs.writeFileSync(filePath, formatted + "// Generated with cubevisage-ui-for-ore-ui")
         jsProgress.update()
       }
       jsProgress.complete()
@@ -233,6 +234,11 @@ const processFile = async (filePath, fileType) => {
     })
     outputZip.writeZip(finalFile)
     packProgress.complete()
+
+    if (fileType === 'apk' && CONFIG.apkSign?.enabled) {
+      const apksignerJar = path.join(__dirname, '..', 'jar', 'apksigner.jar')
+      await signApk(finalFile, CONFIG.apkSign, apksignerJar)
+    }
 
     if (CONFIG.outputMcpack) {
       const mcpackName = `CubeVisage_UI_OreUI_${version || '1.0.0'}.mcpack`

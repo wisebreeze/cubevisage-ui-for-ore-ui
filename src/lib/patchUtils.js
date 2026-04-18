@@ -134,6 +134,35 @@ export function replaceObjectPropertyValue(code, searchText, propName = 'when', 
 }
 
 /**
+ * 替换对象属性中所有出现的布尔值
+ * @param {string} code 源代码字符串
+ * @param {string} searchText 要查找的标识文本
+ * @param {string} propName 要修改的属性名
+ * @param {string} newValue 新的属性值
+ * @returns {string} 处理后的代码字符串
+ */
+export function replaceAllObjectPropertyValues(code, searchText, propName = 'when', newValue = '!1', direction = 'backward') {
+  let result = code
+  let occurrence = 1
+  let previousResult = ''
+  
+  // 循环替换直到没有更多变化
+  while (previousResult !== result) {
+    previousResult = result
+    const newResult = replaceObjectPropertyValue(result, searchText, propName, newValue, occurrence, direction)
+    
+    if (newResult !== result) {
+      result = newResult
+      occurrence++ // 继续替换下一处
+    } else {
+      break // 没有找到更多匹配，退出循环
+    }
+  }
+  
+  return result
+}
+
+/**
  * 获取包含指定搜索文本的完整 React 元素代码
  * @param {string} code - 要搜索的代码字符串
  * @param {string} searchText - 要搜索的文本内容
@@ -178,4 +207,25 @@ export function isVersionGreaterOrEqual(version1, version2) {
     if (v1Parts[i] < v2Parts[i]) return false
   }
   return true
+}
+
+/**
+ * 比较两个版本号是否满足 version1 < version2
+ * @param {string} version1 
+ * @param {string} version2 
+ * @returns {boolean} 如果 version1 低于 version2 返回 true，否则 false
+ */
+export function isVersionLessThan(version1, version2) {
+  const v1Parts = version1.split('.').map(Number)
+  const v2Parts = version2.split('.').map(Number)
+
+  const maxLength = Math.max(v1Parts.length, v2Parts.length)
+  while (v1Parts.length < maxLength) v1Parts.push(0)
+  while (v2Parts.length < maxLength) v2Parts.push(0)
+  
+  for (let i = 0; i < maxLength; i++) {
+    if (v1Parts[i] < v2Parts[i]) return true
+    if (v1Parts[i] > v2Parts[i]) return false
+  }
+  return false
 }

@@ -101,18 +101,19 @@ const injectEngineScript = (htmlContent) => {
     ...currentLangMap
   })
   return htmlContent.replace(
-    '<meta name="apple-mobile-web-app-capable" content="yes" />',
-    `<meta name="apple-mobile-web-app-capable" content="yes" />
-    <style>
+    '</head>',
+    `<style>
       * {
         box-sizing: border-box;
+        cursor: none !important;
       }
     </style>
     <script>
       window.config = ${JSON.stringify(config)}
       window.serverLanguages = ${languages}
     </script>
-    <script>${engineScript}</script>`
+    <script>${engineScript}</script>
+    </head>`
   )
 }
 
@@ -228,7 +229,7 @@ const server = createServer(async (req, res) => {
   const filePath = resolve(__dirname, '..', '..', req.url.substring(1))
   const ext = extname(filePath)
   
-  const nonHtmlExtensions = ['.mp3', '.mp4', '.wav', '.ogg', '.json', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.css', '.js', '.webm', '.avi', '.mov', '.pdf', '.zip', '.rar', '.7z']
+  const nonHtmlExtensions = ['.mp3', '.mp4', '.wav', '.ogg', '.json', '.ico', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.css', '.js', '.webm', '.avi', '.mov', '.pdf', '.zip', '.rar', '.7z']
   
   try {
     await stat(filePath)
@@ -237,7 +238,7 @@ const server = createServer(async (req, res) => {
     const contentType = mimeTypes[ext] || 'application/octet-stream'
     
     // 只有当是HTML文件且不是非HTML扩展名时才进行HTML处理
-    if (ext === '.html' && filePath.endsWith(USE_GAMEPLAY_ROUTES ? 'index.html' : 'gameplay.html') && !nonHtmlExtensions.includes(ext)) {
+    if (ext === '.html' && filePath.endsWith(USE_GAMEPLAY_ROUTES ? 'gameplay.html' : 'index.html') && !nonHtmlExtensions.includes(ext)) {
       let htmlContent = content.toString()
       
       if (!htmlContent.includes('__hot_reload')) {
@@ -265,7 +266,7 @@ const server = createServer(async (req, res) => {
     } catch (fileError) {
       // 文件不存在，回退到 hbui/index 或 hbui/gameplay
       try {
-        let content = await readFile(resolve(__dirname, '..', '..', 'hbui', USE_GAMEPLAY_ROUTES ? 'index.html' : 'gameplay.html'))
+        let content = await readFile(resolve(__dirname, '..', '..', 'hbui', USE_GAMEPLAY_ROUTES ? 'gameplay.html' : 'index.html'))
         let htmlContent = content.toString()
         
         if (!htmlContent.includes('__hot_reload')) {
