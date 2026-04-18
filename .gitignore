@@ -55,3 +55,8 @@ Desktop.ini
 # Java
 *.keystore
 !debug.keystore
+
+# Package lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
