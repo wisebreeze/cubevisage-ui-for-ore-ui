@@ -1,100 +1,122 @@
 {
   // 语言设置：zh-CN, zh-TW, en-US
-  "language": "zh-CN",
+  language: "zh-CN",
 
   // 目标处理路径
-  "targetFolder": {
-    "apk": "assets/assets/gui",
-    "ipa": "Payload/minecraftpe.app/data/gui",
-    "appx": "data/gui"
+  targetFolder: {
+    apk: "assets/assets/gui",
+    ipa: "Payload/minecraftpe.app/data/gui",
+    appx: "data/gui"
   },
 
   // 翻译路径
-  "translationsFolder": {
-    "apk": "assets/assets/resource_packs/oreui/texts",
-    "ipa": "Payload/minecraftpe.app/data/resource_packs/oreui/texts",
-    "appx": "data/resource_packs/oreui/texts"
+  translationsFolder: {
+    apk: "assets/assets/resource_packs/oreui/texts",
+    ipa: "Payload/minecraftpe.app/data/resource_packs/oreui/texts",
+    appx: "data/resource_packs/oreui/texts"
   },
 
   // 处理顺序
-  "sequence": [ 'apk', 'ipa', 'appx' ],
+  sequence: ['apk', 'ipa', 'appx'],
 
   // 压缩代码
-  "minify": false,
+  minify: true,
 
   // 输出 .mcpack
-  "outputMcpack": false,
+  outputMcpack: true,
+
+  // 签名
+  apkSign: {
+    // 是否启用签名
+    enabled: true,
+    // keystore 文件路径，null 则使用自签名
+    keystore: null,
+    // keystore 别名密码
+    keystorePassword: "android",
+    // keystore 别名
+    keyAlias: "androiddebugkey",
+    // keystore 密码
+    keyPassword: "android",
+    // 如果 keystore 为 null，使用 debug 签名
+    useDebugKeystore: true,
+    
+    // 签名方案配置
+    v1: true,  // JAR 签名 (兼容 Android 1.0+)
+    v2: true,  // APK 签名方案 v2 (Android 7.0+)
+    v3: true,  // APK 签名方案 v3 (Android 9.0+)
+    v4: false  // APK 签名方案 v4 (Android 11+)
+  },
 
   // 开发服务器
-  "devServer": {
-    "host": "0.0.0.0",// 主机
-    "post": 8800,// 端口
-    "request_timeout": 4000,// 请求时间
+  devServer: {
+    host: "0.0.0.0",      // 主机
+    port: 8800,           // 端口（修正拼写错误）
+    request_timeout: 4000,// 请求超时时间
 
-    "use_default_routes": "/create-new-world/general",// 默认路由
-    "use_translations": true,// 使用翻译
-    "use_gameplay_routes": true// 游戏内
+    use_default_routes: "/create-new-world/advanced",  // 默认路由
+    use_translations: true,   // 使用翻译
+    use_gameplay_routes: false // 游戏内路由
   },
 
   // 全局
-  "global": {
+  global: {
     // 增强下拉
-    "enhancedDropDown": true,
+    enhancedDropDown: true,
     // 好友抽屉
-    "friendsDrawer": true,
+    friendsDrawer: true,
     // 始终显示滚动条
-    "alwaysShowScrollbar": true
+    alwaysShowScrollbar: false
   },
 
   // 世界屏幕
-  "worldScreen": {
+  worldScreen: {
     // 世界类型下拉
-    "worldTypeDropdown": true,
+    worldTypeDropdown: true,
     // 导出世界
-    "exportWorld": true,
+    exportWorld: true,
     // 调试
-    "debug": true,
+    debug: true,
     // 订阅
-    "marketplacePass": false,
+    marketplacePass: false,
     // 获得更多资源
-    "getMoreResource": false,
+    getMoreResource: false,
     // 领域
-    "realms": false,
+    realms: false,
     // 禁用极限模式
-    "hardcoreModeDisabled": false,
+    hardcoreModeDisabled: false,
     // 禁用实验性玩法
-    "experimentalDisabled": false,
+    experimentalDisabled: false,
     // 昼夜循环锁定时间
-    "daylightCycleLockTime": true,
+    daylightCycleLockTime: true,
     // 游戏模式
-    "gamemode": true,
+    gamemode: true,
     // 翻译
-    "translations": true
+    translations: true
   },
 
   // 游戏屏幕
-  "playScreen": {
+  playScreen: {
     // 使用模板创建
-    "createFromTemplate": true,
+    createFromTemplate: true,
     // 布局切换
-    "gridLayout": true
+    gridLayout: true
   },
 
   // 模板屏幕
-  "startFromTemplateScreen": {
+  startFromTemplateScreen: {
     // 简化布局
-    "simple": true,
+    simple: true,
     // 导出按钮
-    "importButton": true,
+    importButton: true,
     // 隐藏订阅
-    "hideMarketplacePass": false,
+    hideMarketplacePass: false,
     // 隐藏特色
-    "hideFeatured": false
+    hideFeatured: false
   },
 
   // 就寝时间屏幕
-  "bedtimeScreen": {
+  bedtimeScreen: {
     // 聊天按钮
-    "chatAvailability": true
+    chatAvailability: true
   }
 }
